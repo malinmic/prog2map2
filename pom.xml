@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<modelVersion>4.0.0</modelVersion>
+
+<groupId>no.ntnu.idatt2001.mmedvard</groupId>
+<artifactId>mappeoppgave2</artifactId>
+<version>1.0-SNAPSHOT</version>
+
+<properties>
+    <maven.compiler.source>14</maven.compiler.source>
+    <maven.compiler.target>14</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <javafx.version>13</javafx.version>
+</properties>
+
+<!--
+ For å bygge prosjektet riktig, og for å forenkle kjøring av prosjektet under utvikling, må vi
+ legge til en javafx-mave plugin. Her setter vi også hvilken klasse som er main-klassen
+ (klassen med public static void main()-metoden i).
+ Denne plugin gir 3 nye maven goals:
+         javafx:compile - som vil bygge prosjektet riktig
+         javafx:run - som vil kjøre prosjektet
+         javafx:jlink - som kan brukes for å lage et ferdig kjørbart oppsett som du kan distribuere
+-->
+
+
+
+<!--
+Her legger vi inn avhengighet til JavaFX-biblioteket. Det er tilstrekkelig å legge inn
+artifakten javafx-controls.
+Her ser vi også hvordan vi kan opprette "variabler" i en POM-fil, og referere til variabelen senere.
+${javafx.version} refererer til "propertien" javafx.version som er definert under properties-delen
+øverst i prosjektfilen.
+-->
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <version>3.8.1</version>
+        </plugin>
+        <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.3</version>
+            <configuration>
+                <release>${maven.compiler.target}</release>
+                <launcher>launcher</launcher>
+                <mainClass>idatx2001.oblig3.cardgame.App</mainClass>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>
+
+
+<dependencies>
+    <dependency>
+        <groupId>org.openjfx</groupId>
+        <artifactId>javafx-controls</artifactId>
+        <version>13</version>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-engine</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter-api</artifactId>
+        <version>5.7.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+
+
+</project>
