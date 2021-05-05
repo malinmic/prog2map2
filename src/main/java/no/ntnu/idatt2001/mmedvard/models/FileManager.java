@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 /**
  * This class contains static methods for reading and writing csv files containing a list of patients
- *
- * @author OAHjellj
  */
 public class FileManager {
     /**

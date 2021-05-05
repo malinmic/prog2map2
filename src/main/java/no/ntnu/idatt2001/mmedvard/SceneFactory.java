@@ -7,7 +7,6 @@ import java.util.Objects;
 /**
  * SceneFactory, to fulfill assignment requirements
  *
- * @author OAHjellj
  */
 public class SceneFactory {
     public static Scene create(Parent parent) {

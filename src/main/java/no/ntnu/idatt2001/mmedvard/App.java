@@ -1,5 +1,4 @@
 package no.ntnu.idatt2001.mmedvard;
-
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -19,11 +18,13 @@ import javafx.stage.Stage;
 import no.ntnu.idatt2001.mmedvard.controllers.MainController;
 import no.ntnu.idatt2001.mmedvard.models.Patient;
 import no.ntnu.idatt2001.mmedvard.models.PatientRegister;
-
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
 
+/**
+ * Main class for the Patient Register Application
+ */
 public class App extends Application {
 
     private static final String VERSION = "0.0.1";
@@ -77,11 +78,18 @@ public class App extends Application {
     }
 
 
+    /**
+     * updates the table
+     */
     public void updateObservableList(){
         this.patientTableView.setItems(getPatientRegisterListWrapper());
         this.patientTableView.refresh();
     }
 
+    /**
+     * gets observable wrapper for patient list
+     * @return observable list of patients
+     */
     public ObservableList<Patient> getPatientRegisterListWrapper(){
 
         if(this.patientRegister == null){
@@ -94,6 +102,10 @@ public class App extends Application {
 
     }
 
+    /**
+     * creates the status bar
+     * @return statusbar
+     */
     private Node createStatusBar(){
         HBox statusBar = new HBox();
         statusBar.setStyle("-fx-background-color: #999999;");
@@ -104,7 +116,10 @@ public class App extends Application {
     }
 
 
-
+    /**
+     * creates the menu bar
+     * @return menu bar
+     */
     private MenuBar createMenus(){
 
         //initialize mainController
@@ -163,6 +178,11 @@ public class App extends Application {
         return menuBar;
     }
 
+    /**
+     * creates the tool bar
+     * @return tool bar
+     * @throws FileNotFoundException if image file not found
+     */
     private ToolBar createToolBar() throws FileNotFoundException {
 
         //TOOL BAR
@@ -192,6 +212,9 @@ public class App extends Application {
     }
 
 
+    /**
+     * creates the table with patients
+     */
     private void createTable(){
         //COLUMNS FOR TABLE VIEW
         //FIRST NAME

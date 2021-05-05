@@ -9,6 +9,10 @@ import javafx.scene.layout.GridPane;
 import no.ntnu.idatt2001.mmedvard.models.Patient;
 
 
+/**
+ * Dialog class for adding new patient
+ */
+
 public class PatientDialog extends Dialog<Patient>{
 
 
@@ -20,6 +24,9 @@ public class PatientDialog extends Dialog<Patient>{
    private Patient existingPatient = null;
 
 
+    /**
+     * Opens adding new patient dialog
+     */
    public PatientDialog(){
        super();
        this.mode = Mode.NEW;
@@ -27,6 +34,11 @@ public class PatientDialog extends Dialog<Patient>{
    }
 
 
+    /**
+     * opens the edit patient dialog
+     * @param patient
+     * @param editable
+     */
    public PatientDialog(Patient patient, boolean editable){
        super();
        if(editable){
@@ -39,6 +51,9 @@ public class PatientDialog extends Dialog<Patient>{
        createPatient();
    }
 
+    /**
+     * creates the patient from fields
+     */
    private void createPatient(){
        switch (this.mode){
            case EDIT:
