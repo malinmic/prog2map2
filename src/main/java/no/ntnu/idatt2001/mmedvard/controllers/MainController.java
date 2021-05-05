@@ -13,7 +13,6 @@ import no.ntnu.idatt2001.mmedvard.models.PatientRegister;
 import no.ntnu.idatt2001.mmedvard.App;
 
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -27,10 +26,9 @@ public class MainController {
 
         Optional<ButtonType> result = alert.showAndWait();
 
-        if(result.get() == ButtonType.OK){
+        if(result.get() == ButtonType.OK) {
             Platform.exit();
         }
-
     }
 
     public void showAboutDialog(String version){

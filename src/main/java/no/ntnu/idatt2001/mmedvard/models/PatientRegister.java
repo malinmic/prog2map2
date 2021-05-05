@@ -11,14 +11,15 @@ public class PatientRegister{
         patientArrayList = new ArrayList<>();
     }
 
-    public void addPatient(Patient newPatient){
-        if(newPatient != null){
-            patientArrayList.add(newPatient);
+    public boolean addPatient(Patient newPatient){
+        if(patientArrayList.add(newPatient)) {
+            return true;
         }
+        return false;
     }
 
-    public void removePatient(Patient patientToBeRemoved){
-        this.patientArrayList.remove(patientToBeRemoved);
+    public boolean removePatient(Patient patientToBeRemoved){
+        return this.patientArrayList.remove(patientToBeRemoved);
     }
 
     public Collection<Patient> getAllPatients(){

@@ -19,7 +19,6 @@ import javafx.stage.Stage;
 import no.ntnu.idatt2001.mmedvard.controllers.MainController;
 import no.ntnu.idatt2001.mmedvard.models.Patient;
 import no.ntnu.idatt2001.mmedvard.models.PatientRegister;
-import no.ntnu.idatt2001.mmedvard.controllers.PatientDialog;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -31,16 +30,13 @@ public class App extends Application {
 
     private TableView<Patient> patientTableView = new TableView<Patient>();
     private MainController mainController;
-    private PatientDialog patientDialog;
     private PatientRegister patientRegister;
     private ObservableList<Patient> patientRegisterListWrapper;
-
-
+    private Text statusTxt = new Text("OK");
 
     public static void main(String[] args) {
         launch(args);
     }
-
 
     @Override
     public void init() throws Exception{
@@ -73,7 +69,7 @@ public class App extends Application {
         borderPane.setBottom(createStatusBar());
 
 
-        Scene scene = new Scene(borderPane,600,800);
+        Scene scene = SceneFactory.create(borderPane);
         primaryStage.setScene(scene);
 
         primaryStage.show();
@@ -101,7 +97,8 @@ public class App extends Application {
     private Node createStatusBar(){
         HBox statusBar = new HBox();
         statusBar.setStyle("-fx-background-color: #999999;");
-        statusBar.getChildren().add(new Text("Status: OK"));
+        statusBar.getChildren().add(new Text("Status: "));
+        statusBar.getChildren().add(statusTxt);
 
         return statusBar;
     }

@@ -41,6 +41,9 @@ public class Patient {
     }
 
     public void setDiagnosis(String diagnosis) {
+        if(diagnosis == null) {
+            throw new IllegalArgumentException("diagnosis cannot be null");
+        }
         this.diagnosis = diagnosis;
     }
 
@@ -58,17 +61,19 @@ public class Patient {
     public void setLastName(String lastName) {
         if(lastName == null || lastName.trim().length() == 0){
             throw new IllegalArgumentException("Last name cannot be empty");
-        }else {
-            this.lastName = lastName;
         }
+
+        this.lastName = lastName;
+
     }
 
     public void setFirstName(String firstName) {
         if(firstName == null || firstName.trim().length() == 0){
             throw new IllegalArgumentException("First name cannot be empty");
-        }else {
-            this.firstName = firstName;
         }
+
+        this.firstName = firstName;
+
     }
 
     public String getGeneralPractitioner() {
@@ -105,6 +110,6 @@ public class Patient {
     }
 
     public String toString(){
-        return firstName + lastName + socialSecurityNumber + diagnosis + generalPractitioner;
+        return "Name: " + firstName + " " + lastName + "\nSocial security number: " + socialSecurityNumber+ "\nGeneral Practitioner: " + generalPractitioner + " Diagnosis:" + diagnosis ;
     }
 }
