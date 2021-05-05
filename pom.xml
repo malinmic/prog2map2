@@ -15,25 +15,6 @@
     <javafx.version>13</javafx.version>
 </properties>
 
-<!--
- For å bygge prosjektet riktig, og for å forenkle kjøring av prosjektet under utvikling, må vi
- legge til en javafx-mave plugin. Her setter vi også hvilken klasse som er main-klassen
- (klassen med public static void main()-metoden i).
- Denne plugin gir 3 nye maven goals:
-         javafx:compile - som vil bygge prosjektet riktig
-         javafx:run - som vil kjøre prosjektet
-         javafx:jlink - som kan brukes for å lage et ferdig kjørbart oppsett som du kan distribuere
--->
-
-
-
-<!--
-Her legger vi inn avhengighet til JavaFX-biblioteket. Det er tilstrekkelig å legge inn
-artifakten javafx-controls.
-Her ser vi også hvordan vi kan opprette "variabler" i en POM-fil, og referere til variabelen senere.
-${javafx.version} refererer til "propertien" javafx.version som er definert under properties-delen
-øverst i prosjektfilen.
--->
 
 <build>
     <plugins>
@@ -49,7 +30,7 @@ ${javafx.version} refererer til "propertien" javafx.version som er definert unde
             <configuration>
                 <release>${maven.compiler.target}</release>
                 <launcher>launcher</launcher>
-                <mainClass>no.ntnu.idatt2001.mmedvard.views.App</mainClass>
+                <mainClass>no.ntnu.idatt2001.mmedvard.App</mainClass>
             </configuration>
         </plugin>
     </plugins>

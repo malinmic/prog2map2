@@ -1,10 +1,8 @@
-package no.ntnu.idatt2001.mmedvard.views;
+package no.ntnu.idatt2001.mmedvard;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -21,6 +19,7 @@ import javafx.stage.Stage;
 import no.ntnu.idatt2001.mmedvard.controllers.MainController;
 import no.ntnu.idatt2001.mmedvard.models.Patient;
 import no.ntnu.idatt2001.mmedvard.models.PatientRegister;
+import no.ntnu.idatt2001.mmedvard.controllers.PatientDialog;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -30,11 +29,9 @@ public class App extends Application {
 
     private static final String VERSION = "0.0.1";
 
-    Stage stage;
-    Scene scene;
-    TableView<Patient> patientTableView = new TableView<Patient>();
+    private TableView<Patient> patientTableView = new TableView<Patient>();
     private MainController mainController;
-    private PatientDialogView patientDialogView;
+    private PatientDialog patientDialog;
     private PatientRegister patientRegister;
     private ObservableList<Patient> patientRegisterListWrapper;
 
@@ -51,13 +48,13 @@ public class App extends Application {
 
         this.mainController = new MainController();
         this.patientRegister = new PatientRegister();
+        this.patientRegisterListWrapper = getPatientRegisterListWrapper();
     }
 
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        stage = primaryStage;
         primaryStage.setTitle("Patient Register");
         primaryStage.setMinHeight(600);
         primaryStage.setMinWidth(800);
@@ -73,16 +70,8 @@ public class App extends Application {
         BorderPane borderPane = new BorderPane();
         borderPane.setCenter(this.patientTableView);
         borderPane.setTop(topContainer);
-        borderPane.setBottom(createStaturBar());
+        borderPane.setBottom(createStatusBar());
 
-
-
-
-
-        /**
-        borderPane.setTop(mainMenu);
-        borderPane.setTop(toolBar);
-         */
 
         Scene scene = new Scene(borderPane,600,800);
         primaryStage.setScene(scene);
@@ -93,8 +82,8 @@ public class App extends Application {
 
 
     public void updateObservableList(){
-        this.patientRegisterListWrapper.setAll(this.patientRegister.getAllPatients());
-
+        this.patientTableView.setItems(getPatientRegisterListWrapper());
+        this.patientTableView.refresh();
     }
 
     public ObservableList<Patient> getPatientRegisterListWrapper(){
@@ -107,19 +96,9 @@ public class App extends Application {
         }
         return patientRegisterListWrapper;
 
-        /**
-        ObservableList<Patient> observableListOfPatients = this.patientRegisterListWrapper;
-
-        patientTableView.setItems(observableListOfPatients);
-        patientTableView.getColumns().addAll
-        ObservableList<Patient> patients = FXCollections.observableArrayList();
-        patients.add(new Patient("John", "Doe","09129100000",""));
-
-        return patients;
-         */
     }
 
-    private Node createStaturBar(){
+    private Node createStatusBar(){
         HBox statusBar = new HBox();
         statusBar.setStyle("-fx-background-color: #999999;");
         statusBar.getChildren().add(new Text("Status: OK"));
@@ -137,7 +116,9 @@ public class App extends Application {
         //------------ FILE MENU------------
         Menu fileMenu = new Menu("File");
         MenuItem fileImport = new MenuItem("Import from CSV...");
+        fileImport.setOnAction(event -> mainController.importFromFile(event, this.patientRegister,this));
         MenuItem fileExport = new MenuItem("Export from CSV...");
+        fileExport.setOnAction(event -> mainController.ExportFromFile(event, this.patientRegister));
         MenuItem fileExit = new MenuItem("Exit");
         fileExit.setOnAction(event -> mainController.exit(event));
 
@@ -236,50 +217,15 @@ public class App extends Application {
         diagnosisColumn.setMinWidth(200);
         diagnosisColumn.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
 
-
         patientTableView = new TableView<>();
         ObservableList<Patient> observableListOfPatients = this.patientRegisterListWrapper;
         patientTableView.setItems(observableListOfPatients);
 
-
-
-        //table.setItems(getListOfPatients());
-
         patientTableView.getColumns().addAll(firstNameColumn,lastNameColumn,socialSecurityNumberColumn,diagnosisColumn);
-
 
         patientTableView.setItems(FXCollections.observableArrayList(this.patientRegister.getAllPatients()));
 
-        patientTableView.getItems().add(new Patient("John", "Doe","09129190999","none"));
-
-
-
-
-
-        /**
-        TableColumn<Patient, SimpleStringProperty> column1 = new TableColumn<>("First Name");
-        column1.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-
-        TableColumn<Patient, SimpleStringProperty> column2 = new TableColumn<>("Last Name");
-        column2.setCellValueFactory(new PropertyValueFactory<>("lastName"));
-
-        TableColumn<Patient,SimpleStringProperty> column3 = new TableColumn<>("Social Security Number");
-        column3.setCellValueFactory(new PropertyValueFactory<>("socialSecurityNumber"));
-
-        TableColumn<Patient,SimpleStringProperty> column4 = new TableColumn<>("Diagnosis");
-        column4.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
-
-        table.getColumns().add(column1);
-        table.getColumns().add(column2);
-        table.getColumns().add(column3);
-        table.getColumns().add(column4);
-
-
-
-
-        //tableView.getItems().add(new Patient("John","Doe", "09129190900"," "));
-
-         */
+        //patientTableView.getItems().add(new Patient("John", "Doe","09129190999","none"));
 
     }
 
