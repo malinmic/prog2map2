@@ -49,7 +49,7 @@ ${javafx.version} refererer til "propertien" javafx.version som er definert unde
             <configuration>
                 <release>${maven.compiler.target}</release>
                 <launcher>launcher</launcher>
-                <mainClass>idatx2001.oblig3.cardgame.App</mainClass>
+                <mainClass>no.ntnu.idatt2001.mmedvard.views.App</mainClass>
             </configuration>
         </plugin>
     </plugins>
